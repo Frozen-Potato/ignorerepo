@@ -1,0 +1,84 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/_3gpp-common-subscription-contro.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title _3gpp-common-subscription-contro 
+package "top3gpp:_3gpp-common-top" as top3gpp__3gpp_common_top { 
+} 
+package "yext3gpp:_3gpp-common-yang-extensions" as yext3gpp__3gpp_common_yang_extensions { 
+} 
+package "subscr3gpp:_3gpp-common-subscription-control" as subscr3gpp__3gpp_common_subscription_control { 
+} 
+note top of subscr3gpp__3gpp_common_subscription_control : <b>Namespace: </b> urn:3gpp:sa5:_3gpp-common-subscription-control \n<b>Prefix: </b> subscr3gpp \n<b>Organization : </b>\n3GPP SA5 \n<b>Contact : </b>\nhttps://www.3gpp.org/DynaReport/TSG-WG--S5--officials.htm?Itemid=464 \n<b>Revision : </b> 2024-05-18 \n
+package "subscr3gpp:_3gpp-common-subscription-control" as subscr3gpp__3gpp_common_subscription_control { 
+class "_3gpp-common-subscription-control" as _3gpp_common_subscription_control << (M, #33CCFF) module>> 
+class "ScopeGrp" as _3gpp_common_subscription_control_I_ScopeGrp_grouping <<(G,Lime) grouping>> 
+class "scope" as _3gpp_common_subscription_control_I_ScopeGrp_I_scope <<choice>> 
+_3gpp_common_subscription_control_I_ScopeGrp_grouping .. _3gpp_common_subscription_control_I_ScopeGrp_I_scope : choice 
+class "type-level" as _3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_type_level_case <<case>>
+_3gpp_common_subscription_control_I_ScopeGrp_I_scope .. _3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_type_level_case  : choice scope
+_3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_type_level_case : scopeType : enumeration : {BASE_ONLY,BASE_ALL,BASE_NTH_LEVEL,...}   {mandatory}
+_3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_type_level_case : scopeLevel : uint16   {mandatory}
+note bottom of _3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_type_level_case
+<b>When</b> (scopeLevel):
+../scopeType = "BASE_NTH_LEVEL" or ../scopeType = "BASE_SUBTREE"
+
+end note 
+class "dataNodeSelector" as _3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_dataNodeSelector_case <<case>>
+_3gpp_common_subscription_control_I_ScopeGrp_I_scope .. _3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_dataNodeSelector_case  : choice scope
+_3gpp_common_subscription_control_I_ScopeGrp_I_scope_I_dataNodeSelector_case : dataNodeSelector : string  
+class "NtfSubscriptionControlGrp" as _3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_grouping : notificationRecipientAddress : string   {mandatory}
+_3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_grouping : notificationTypes []: string 
+class "scope" as _3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_I_scope << (L, #FF7700) list>> 
+_3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_grouping *-- "0..8" _3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_I_scope 
+_3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_I_scope : +idx : string  {key} 
+_3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_I_scope : ScopeGrp {uses} 
+_3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_grouping : notificationFilter : string  
+class "HeartbeatControlGrp" as _3gpp_common_subscription_control_I_HeartbeatControlGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_subscription_control_I_HeartbeatControlGrp_grouping : heartbeatNtfPeriod : uint32   {mandatory} {seconds}
+_3gpp_common_subscription_control_I_HeartbeatControlGrp_grouping : triggerHeartbeatNtf : boolean   = false 
+class "SubscriptionControlSubtree" as _3gpp_common_subscription_control_I_SubscriptionControlSubtree_grouping <<(G,Lime) grouping>> 
+class "NtfSubscriptionControl" as _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl << (L, #FF7700) list>> 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_grouping *-- "0..N" _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl : top3gpp:Top_Grp {uses} 
+class "attributes" as  _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_attributes <<container>> 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl *-- "1" _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_attributes 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_attributes : NtfSubscriptionControlGrp {uses} 
+class "HeartbeatControl" as _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl << (L, #FF7700) list>> 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl *-- "0..1" _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl : top3gpp:Top_Grp {uses} 
+class "attributes" as  _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl_I_attributes <<container>> 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl *-- "1" _3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl_I_attributes 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl_I_attributes : HeartbeatControlGrp {uses} 
+class "SupportedNotificationsGrp" as _3gpp_common_subscription_control_I_SupportedNotificationsGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_subscription_control_I_SupportedNotificationsGrp_grouping : notificationTypes []: string  {Config : false}
+_3gpp_common_subscription_control_I_SupportedNotificationsGrp_grouping : notificationProtocols []: enumeration : {HTTP,HTTP_VES_ENCAPS,}  {Config : false}
+class "SupportedNotificationsSubtree" as _3gpp_common_subscription_control_I_SupportedNotificationsSubtree_grouping <<(G,Lime) grouping>> 
+class "SupportedNotifications" as _3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications << (L, #FF7700) list>> 
+_3gpp_common_subscription_control_I_SupportedNotificationsSubtree_grouping *-- "0..N" _3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications 
+_3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications : top3gpp:Top_Grp {uses} 
+class "attributes" as  _3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications_I_attributes <<container>> 
+_3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications *-- "1" _3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications_I_attributes 
+_3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications_I_attributes : SupportedNotificationsGrp {uses} 
+} 
+
+top3gpp__3gpp_common_top +-- subscr3gpp__3gpp_common_subscription_control
+yext3gpp__3gpp_common_yang_extensions +-- subscr3gpp__3gpp_common_subscription_control
+_3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_I_scope --> _3gpp_common_subscription_control_I_ScopeGrp_grouping : uses 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_attributes --> _3gpp_common_subscription_control_I_NtfSubscriptionControlGrp_grouping : uses 
+_3gpp_common_subscription_control_I_SubscriptionControlSubtree_I_NtfSubscriptionControl_I_HeartbeatControl_I_attributes --> _3gpp_common_subscription_control_I_HeartbeatControlGrp_grouping : uses 
+_3gpp_common_subscription_control_I_SupportedNotificationsSubtree_I_SupportedNotifications_I_attributes --> _3gpp_common_subscription_control_I_SupportedNotificationsGrp_grouping : uses 
+center footer
+ <size:20> UML Generated : 2025-07-03 11:18 </size>
+ endfooter 
+@enduml 

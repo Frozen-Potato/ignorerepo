@@ -1,0 +1,361 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/_3gpp-common-measurements__3gpp-.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title _3gpp-common-measurements__3gpp- 
+package "top3gpp:_3gpp-common-top" as top3gpp__3gpp_common_top { 
+} 
+package "types3gpp:_3gpp-common-yang-types" as types3gpp__3gpp_common_yang_types { 
+} 
+package "yext3gpp:_3gpp-common-yang-extensions" as yext3gpp__3gpp_common_yang_extensions { 
+} 
+package "files3gpp:_3gpp-common-files" as files3gpp__3gpp_common_files { 
+} 
+package "meas3gpp:_3gpp-common-measurements" as meas3gpp__3gpp_common_measurements { 
+} 
+note top of meas3gpp__3gpp_common_measurements : <b>Namespace: </b> urn:3gpp:sa5:_3gpp-common-measurements \n<b>Prefix: </b> meas3gpp \n<b>Organization : </b>\n3GPP SA5 \n<b>Contact : </b>\nhttps://www.3gpp.org/DynaReport/TSG-WG--S5--officials.htm?Itemid=464 \n<b>Revision : </b> 2025-02-07 \n
+package "meas3gpp:_3gpp-common-measurements" as meas3gpp__3gpp_common_measurements { 
+class "_3gpp-common-measurements" as _3gpp_common_measurements << (M, #33CCFF) module>> 
+_3gpp_common_measurements : feature : FilesUnderPerfMetricJob 
+class "ThresholdInfoGrp" as _3gpp_common_measurements_I_ThresholdInfoGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : performanceMetrics []: string 
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : thresholdLevel : uint64   {mandatory}
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : thresholdDirection : enumeration : {UP,DOWN,UP_AND_DOWN,}   {mandatory}
+note bottom of _3gpp_common_measurements_I_ThresholdInfoGrp_grouping
+<b>Must</b> (thresholdDirection):
+. = "UP_AND_DOWN" or  not(../hysteresis)
+
+end note 
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : thresholdValue : union{int64, decimal64}   {mandatory}
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : hysteresis : union{uint64, decimal64}  
+note bottom of _3gpp_common_measurements_I_ThresholdInfoGrp_grouping
+<b>Must</b> (hysteresis):
+. >= 0
+
+end note 
+class "SupportedPerfMetricGroupGrp" as _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_grouping <<(G,Lime) grouping>> 
+class "SupportedPerfMetricGroups" as _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_grouping *-- "0..N" _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups 
+note bottom of _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups
+<b>Config = </b>false
+end note 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : +idx : uint32  {key} 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : performanceMetrics []: string 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : granularityPeriods []: uint32 [1..max]  {seconds}
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : reportingMethods []: enumeration : {FILE_BASED_LOC_SET_BY_PRODUCER,FILE_BASED_LOC_SET_BY_CONSUMER,STREAM_BASED,} 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : reportingPeriods []: uint32 [1..max]  {seconds}
+class "PerfMetricJobGrp" as _3gpp_common_measurements_I_PerfMetricJobGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : administrativeState : types3gpp:BasicAdministrativeState   = UNLOCKED 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : operationalState : types3gpp:OperationalState   {mandatory} {Config : false}
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : jobId : string  
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : performanceMetrics []: string 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : granularityPeriod : uint32 [1..max]   {mandatory} {seconds}
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : objectInstances []: types3gpp:DistinguishedName 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : rootObjectInstances []: types3gpp:DistinguishedName 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : types3gpp:ReportingCtrl {uses} 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : _linkToFiles : string   {mandatory} {Config : false}
+class "conditiona-or-schedule" as _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule <<choice>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping .. _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule : choice 
+class "schedulerRef" as _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_schedulerRef_case <<case>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule .. _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_schedulerRef_case : choice schedulerRef
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_schedulerRef_case : schedulerRef : types3gpp:DistinguishedName  
+class "conditionMonitorRef" as _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_conditionMonitorRef_case <<case>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule .. _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_conditionMonitorRef_case : choice conditionMonitorRef
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_conditionMonitorRef_case : conditionMonitorRef : types3gpp:DistinguishedName  
+class "ThresholdMonitorGrp" as _3gpp_common_measurements_I_ThresholdMonitorGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : administrativeState : types3gpp:BasicAdministrativeState   = UNLOCKED 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : operationalState : types3gpp:OperationalState   {mandatory} {Config : false}
+class "thresholdInfoList" as _3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping *-- "1..N" _3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList : +idx : uint32  {key} 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList : ThresholdInfoGrp {uses} 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : monitorGranularityPeriod : uint32 [1..max]   {mandatory} {second}
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : objectInstances []: types3gpp:DistinguishedName 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : rootObjectInstances []: types3gpp:DistinguishedName 
+class "MeasurementSubtree" as _3gpp_common_measurements_I_MeasurementSubtree_grouping <<(G,Lime) grouping>> 
+class "PerfMetricJob" as _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_MeasurementSubtree_grouping *-- "0..N" _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob : top3gpp:Top_Grp {uses} 
+class "attributes" as  _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes <<container>> 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob *-- "1" _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes : PerfMetricJobGrp {uses} 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob : files3gpp:FilesSubtree {uses} 
+class "ThresholdMonitor" as _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_MeasurementSubtree_grouping *-- "0..N" _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor : top3gpp:Top_Grp {uses} 
+class "attributes" as  _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes <<container>> 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor *-- "1" _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes : ThresholdMonitorGrp {uses} 
+} 
+
+top3gpp__3gpp_common_top +-- meas3gpp__3gpp_common_measurements
+types3gpp__3gpp_common_yang_types +-- meas3gpp__3gpp_common_measurements
+yext3gpp__3gpp_common_yang_extensions +-- meas3gpp__3gpp_common_measurements
+files3gpp__3gpp_common_files +-- meas3gpp__3gpp_common_measurements
+package "inet:ietf-inet-types" as inet_ietf_inet_types { 
+} 
+package "yang:ietf-yang-types" as yang_ietf_yang_types { 
+} 
+package "yext3gpp:_3gpp-common-yang-extensions" as yext3gpp__3gpp_common_yang_extensions { 
+} 
+package "types3gpp:_3gpp-common-yang-types" as types3gpp__3gpp_common_yang_types { 
+} 
+note top of types3gpp__3gpp_common_yang_types : <b>Namespace: </b> urn:3gpp:sa5:_3gpp-common-yang-types \n<b>Prefix: </b> types3gpp \n<b>Organization : </b>\n3GPP SA5 \n<b>Contact : </b>\nhttps://www.3gpp.org/DynaReport/TSG-WG--S5--officials.htm?Itemid=464 \n<b>Revision : </b> 2025-02-19 \n
+package "types3gpp:_3gpp-common-yang-types" as types3gpp__3gpp_common_yang_types { 
+class "_3gpp-common-yang-types" as _3gpp_common_yang_types << (M, #33CCFF) module>> 
+enum "EnabledDisabled" as types3gpp_EnabledDisabled_typedef <<enumeration>> {
+DISABLED
+ENABLED
+}
+class "nameValuePair" as _3gpp_common_yang_types_I_nameValuePair_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_nameValuePair_grouping : name : string  
+_3gpp_common_yang_types_I_nameValuePair_grouping : value : string  
+enum "DayOfWeekT" as types3gpp_DayOfWeekT_typedef <<enumeration>> {
+Monday
+Tuesday
+Wednesday
+MORE
+}
+enum "DayOfWeek" as types3gpp_DayOfWeek_typedef <<enumeration>> {
+MONDAY
+TUESDAY
+WEDNESDAY
+MORE
+}
+class "DateMonth" as types3gpp_DateMonth_typedef << (T, YellowGreen) typedef>>
+types3gpp_DateMonth_typedef : uint8 [0..12]
+class "DateMonthDay" as types3gpp_DateMonthDay_typedef << (T, YellowGreen) typedef>>
+types3gpp_DateMonthDay_typedef : uint8 [0..31]
+class "FullTime" as types3gpp_FullTime_typedef << (T, YellowGreen) typedef>>
+types3gpp_FullTime_typedef : yang:time-with-zone-offset
+class "DayInYearGrp" as _3gpp_common_yang_types_I_DayInYearGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_DayInYearGrp_grouping : month : DateMonth   {mandatory}
+_3gpp_common_yang_types_I_DayInYearGrp_grouping : monthDay : DateMonthDay   {mandatory}
+class "TimeWindowGrp" as _3gpp_common_yang_types_I_TimeWindowGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_TimeWindowGrp_grouping : startTime : yang:date-and-time  
+_3gpp_common_yang_types_I_TimeWindowGrp_grouping : endTime : yang:date-and-time  
+class "ProcessMonitorGrp" as _3gpp_common_yang_types_I_ProcessMonitorGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : +id : string  {key}  {mandatory}
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : status : enumeration : {NOT_STARTED,RUNNING,CANCELLING,...}   = RUNNING  {Config : false}
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : progressPercentage : uint8 [0..100]   {Config : false}
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : progressStateInfo []: string  {Config : false}
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : resultStateInfo : string   {Config : false}
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : startTime : yang:date-and-time   {Config : false}
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : endTime : yang:date-and-time   {Config : false}
+_3gpp_common_yang_types_I_ProcessMonitorGrp_grouping : timer : uint32   {minutes}
+class "NpnIdGrp" as _3gpp_common_yang_types_I_NpnIdGrp_grouping <<(G,Lime) grouping>> 
+class "plmnId" as _3gpp_common_yang_types_I_NpnIdGrp_I_plmnId << (L, #FF7700) list>> 
+_3gpp_common_yang_types_I_NpnIdGrp_grouping *-- "1..N" _3gpp_common_yang_types_I_NpnIdGrp_I_plmnId 
+_3gpp_common_yang_types_I_NpnIdGrp_I_plmnId : types3gpp:PLMNId {uses} 
+class "npnidChoice" as _3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice <<choice>> 
+_3gpp_common_yang_types_I_NpnIdGrp_grouping .. _3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice : choice 
+class "cAGIdList" as _3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice_I_cAGIdList_case <<case>> 
+_3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice .. _3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice_I_cAGIdList_case : choice cAGIdList
+_3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice_I_cAGIdList_case : cAGIdList []: string 
+class "nIDList" as _3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice_I_nIDList_case <<case>> 
+_3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice .. _3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice_I_nIDList_case : choice nIDList
+_3gpp_common_yang_types_I_NpnIdGrp_I_npnidChoice_I_nIDList_case : nIDList []: string 
+class "TenthOfDegrees" as types3gpp_TenthOfDegrees_typedef << (T, YellowGreen) typedef>>
+types3gpp_TenthOfDegrees_typedef : uint16 [0..3600]
+class "Latitude" as types3gpp_Latitude_typedef << (T, YellowGreen) typedef>>
+types3gpp_Latitude_typedef : decimal64 [-90.0000..+90.0000]
+class "Longitude" as types3gpp_Longitude_typedef << (T, YellowGreen) typedef>>
+types3gpp_Longitude_typedef : decimal64 [-180.0000..+180.0000]
+class "Altitude" as types3gpp_Altitude_typedef << (T, YellowGreen) typedef>>
+types3gpp_Altitude_typedef : decimal64
+class "GeographicalCoordinates" as _3gpp_common_yang_types_I_GeographicalCoordinates_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_GeographicalCoordinates_grouping : latitude : Latitude   {mandatory}
+_3gpp_common_yang_types_I_GeographicalCoordinates_grouping : longitude : Longitude   {mandatory}
+enum "OnOff" as types3gpp_OnOff_typedef <<enumeration>> {
+ON
+OFF
+}
+class "ManagedNFProfile" as _3gpp_common_yang_types_I_ManagedNFProfile_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : idx : uint32  
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : nfInstanceId : yang:uuid   {mandatory} {Config : false}
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : nfType []: NfType  {Config : false}
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : hostAddr : inet:host   {mandatory}
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : authzInfo : string  
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : location : string  
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : capacity : uint16   {mandatory}
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : nFSrvGroupId : string  
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : supportedDataSetIds []: enumeration : {SUBSCRIPTION,POLICY,EXPOSURE,...} 
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : smfServingAreas []: string 
+_3gpp_common_yang_types_I_ManagedNFProfile_grouping : priority : uint16  
+enum "usageState" as types3gpp_usageState_typedef <<enumeration>> {
+IDLE
+ACTIVE
+BUSY
+}
+class "SAPGrp" as _3gpp_common_yang_types_I_SAPGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_SAPGrp_grouping : host : inet:host   {mandatory}
+_3gpp_common_yang_types_I_SAPGrp_grouping : port : inet:port-number   {mandatory}
+class "Mcc" as types3gpp_Mcc_typedef << (T, YellowGreen) typedef>>
+types3gpp_Mcc_typedef : string {pattern = [02-79][0-9][0-9]}
+class "Mnc" as types3gpp_Mnc_typedef << (T, YellowGreen) typedef>>
+types3gpp_Mnc_typedef : string {pattern = [0-9][0-9][0-9]|[0-9...}
+class "PLMNId" as _3gpp_common_yang_types_I_PLMNId_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_PLMNId_grouping : +mcc : Mcc  {key}  {mandatory}
+_3gpp_common_yang_types_I_PLMNId_grouping : +mnc : Mnc  {key}  {mandatory}
+class "Nci" as types3gpp_Nci_typedef << (T, YellowGreen) typedef>>
+types3gpp_Nci_typedef : union{string, string}
+enum "OperationalState" as types3gpp_OperationalState_typedef <<enumeration>> {
+DISABLED
+ENABLED
+}
+enum "BasicAdministrativeState" as types3gpp_BasicAdministrativeState_typedef <<enumeration>> {
+LOCKED
+UNLOCKED
+}
+enum "AdministrativeState" as types3gpp_AdministrativeState_typedef <<enumeration>> {
+LOCKED
+UNLOCKED
+SHUTTINGDOWN
+}
+enum "AvailabilityStatus" as types3gpp_AvailabilityStatus_typedef <<enumeration>> {
+IN_TEST
+FAILED
+POWER_OFF
+MORE
+}
+enum "CellState" as types3gpp_CellState_typedef <<enumeration>> {
+IDLE
+INACTIVE
+ACTIVE
+}
+class "Nrpci" as types3gpp_Nrpci_typedef << (T, YellowGreen) typedef>>
+types3gpp_Nrpci_typedef : uint32
+class "Tac" as types3gpp_Tac_typedef << (T, YellowGreen) typedef>>
+types3gpp_Tac_typedef : string {pattern = ([A-Fa-f0-9]{4})|([A...}
+class "TaiGrp" as _3gpp_common_yang_types_I_TaiGrp_grouping <<(G,Lime) grouping>> 
+class "plmnId" as _3gpp_common_yang_types_I_TaiGrp_I_plmnId << (L, #FF7700) list>> 
+_3gpp_common_yang_types_I_TaiGrp_grouping *-- "1..1" _3gpp_common_yang_types_I_TaiGrp_I_plmnId 
+_3gpp_common_yang_types_I_TaiGrp_I_plmnId : types3gpp:PLMNId {uses} 
+_3gpp_common_yang_types_I_TaiGrp_grouping : tac : Tac   {mandatory}
+class "GeoCoordinateGrp" as _3gpp_common_yang_types_I_GeoCoordinateGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_GeoCoordinateGrp_grouping : latitude : decimal64 [-90..90]   {mandatory}
+_3gpp_common_yang_types_I_GeoCoordinateGrp_grouping : longitude : decimal64 [-180..180]   {mandatory}
+_3gpp_common_yang_types_I_GeoCoordinateGrp_grouping : altitude : Altitude  
+class "GeoAreaGrp" as _3gpp_common_yang_types_I_GeoAreaGrp_grouping <<(G,Lime) grouping>> 
+class "geoPolygon" as _3gpp_common_yang_types_I_GeoAreaGrp_I_geoPolygon << (L, #FF7700) list>> 
+_3gpp_common_yang_types_I_GeoAreaGrp_grouping *-- "3..N" _3gpp_common_yang_types_I_GeoAreaGrp_I_geoPolygon : ordered-by : user
+_3gpp_common_yang_types_I_GeoAreaGrp_I_geoPolygon : GeoCoordinateGrp {uses} 
+class "AmfRegionId" as types3gpp_AmfRegionId_typedef << (T, YellowGreen) typedef>>
+types3gpp_AmfRegionId_typedef : union{uint8, string}
+class "AmfSetId" as types3gpp_AmfSetId_typedef << (T, YellowGreen) typedef>>
+types3gpp_AmfSetId_typedef : union{uint16, string}
+class "AmfPointer" as types3gpp_AmfPointer_typedef << (T, YellowGreen) typedef>>
+types3gpp_AmfPointer_typedef : union{uint8, string}
+class "AmfIdentifier" as _3gpp_common_yang_types_I_AmfIdentifier_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_AmfIdentifier_grouping : amfRegionId : AmfRegionId  
+_3gpp_common_yang_types_I_AmfIdentifier_grouping : amfSetId : AmfSetId  
+_3gpp_common_yang_types_I_AmfIdentifier_grouping : amfPointer : AmfPointer  
+enum "NfType" as types3gpp_NfType_typedef <<enumeration>> {
+NRF
+UDM
+AMF
+MORE
+}
+enum "NotificationType" as types3gpp_NotificationType_typedef <<enumeration>> {
+N1_MESSAGES
+N2_INFORMATION
+LOCATION_NOTIFICATION
+}
+class "Load" as types3gpp_Load_typedef << (T, YellowGreen) typedef>>
+types3gpp_Load_typedef : uint8 [0..100]
+enum "N1MessageClass" as types3gpp_N1MessageClass_typedef <<enumeration>> {
+5GMM
+SM
+LPP
+MORE
+}
+enum "N2InformationClass" as types3gpp_N2InformationClass_typedef <<enumeration>> {
+SM
+NRPPA
+PWS
+MORE
+}
+class "DefaultNotificationSubscription" as _3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : notificationType : NotificationType  
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : callbackUri : inet:uri  
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : interPlmnCallbackUri : inet:uri  
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : n1MessageClass : N1MessageClass  
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : n2InformationClass : N2InformationClass  
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : versions : N2InformationClass  
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : binding : string   {Config : false}
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : acceptedEncoding : string   {Config : false}
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : supportedFeatures : string   {Config : false}
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : serviceInfoList : string   {Config : false}
+_3gpp_common_yang_types_I_DefaultNotificationSubscription_grouping : callbackUriPrefix : inet:uri  
+class "Ipv4AddressRange" as _3gpp_common_yang_types_I_Ipv4AddressRange_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_Ipv4AddressRange_grouping : start : inet:ipv4-address  
+_3gpp_common_yang_types_I_Ipv4AddressRange_grouping : end : inet:ipv4-address  
+class "Ipv6PrefixRange" as _3gpp_common_yang_types_I_Ipv6PrefixRange_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_Ipv6PrefixRange_grouping : start : inet:ipv6-prefix  
+_3gpp_common_yang_types_I_Ipv6PrefixRange_grouping : end : inet:ipv6-prefix  
+class "NsiId" as types3gpp_NsiId_typedef << (T, YellowGreen) typedef>>
+types3gpp_NsiId_typedef : string
+enum "UeMobilityLevel" as types3gpp_UeMobilityLevel_typedef <<enumeration>> {
+STATIONARY
+NOMADIC
+RESTRICTED_MOBILITY
+MORE
+}
+enum "ResourceSharingLevel" as types3gpp_ResourceSharingLevel_typedef <<enumeration>> {
+SHARED
+NOT_SHARED
+}
+enum "TxDirection" as types3gpp_TxDirection_typedef <<enumeration>> {
+DL
+UL
+DL_AND_UL
+}
+class "AddressWithVlan" as _3gpp_common_yang_types_I_AddressWithVlan_grouping <<(G,Lime) grouping>> 
+_3gpp_common_yang_types_I_AddressWithVlan_grouping : ipAddress : inet:ip-address  
+_3gpp_common_yang_types_I_AddressWithVlan_grouping : vlanId : uint16  
+class "DistinguishedName" as types3gpp_DistinguishedName_typedef << (T, YellowGreen) typedef>>
+types3gpp_DistinguishedName_typedef : string {pattern = [A-Z][^,=+<>#;\\"\r\...}
+class "QOffsetRange" as types3gpp_QOffsetRange_typedef << (T, YellowGreen) typedef>>
+types3gpp_QOffsetRange_typedef : int8 [-24 | -22 | -20 | -18 | -16 | -14 | -12 | -10 | -8 | -6 |  -5 | -4 | -3 | -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 |  12 | 14 | 16 | 18 | 20 | 22 | 24]
+class "ReportingCtrl" as _3gpp_common_yang_types_I_ReportingCtrl_grouping <<(G,Lime) grouping>> 
+class "reportingCtrl" as _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl <<choice>> 
+_3gpp_common_yang_types_I_ReportingCtrl_grouping .. _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl : choice 
+class "file-based-reporting" as _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_case <<case>>
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl .. _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_case  : choice reportingCtrl
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_case : fileReportingPeriod : uint32 [1..max]   {mandatory} {minutes}
+class "reporting-target" as _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target <<choice>> 
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_case .. _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target : choice 
+class "file-target" as _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target_I_file_target_case <<case>>
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target .. _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target_I_file_target_case  : choice reporting-target
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target_I_file_target_case : fileLocation : string  
+class "notification-target" as _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target_I_notification_target_case <<case>>
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target .. _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target_I_notification_target_case  : choice reporting-target
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_file_based_reporting_I_reporting_target_I_notification_target_case : notificationRecipientAddress : string  
+class "stream-based-reporting" as _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_stream_based_reporting_case <<case>>
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl .. _3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_stream_based_reporting_case  : choice reportingCtrl
+_3gpp_common_yang_types_I_ReportingCtrl_I_reportingCtrl_I_stream_based_reporting_case : streamTarget : string   {mandatory}
+} 
+
+inet_ietf_inet_types +-- types3gpp__3gpp_common_yang_types
+yang_ietf_yang_types +-- types3gpp__3gpp_common_yang_types
+yext3gpp__3gpp_common_yang_extensions +-- types3gpp__3gpp_common_yang_types
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping --> _3gpp_common_yang_types_I_ReportingCtrl_grouping : uses 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList --> _3gpp_common_measurements_I_ThresholdInfoGrp_grouping : uses 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes --> _3gpp_common_measurements_I_PerfMetricJobGrp_grouping : uses 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes --> _3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : uses 
+_3gpp_common_yang_types_I_NpnIdGrp_I_plmnId --> _3gpp_common_yang_types_I_PLMNId_grouping : uses 
+_3gpp_common_yang_types_I_TaiGrp_I_plmnId --> _3gpp_common_yang_types_I_PLMNId_grouping : uses 
+_3gpp_common_yang_types_I_GeoAreaGrp_I_geoPolygon --> _3gpp_common_yang_types_I_GeoCoordinateGrp_grouping : uses 
+center footer
+ <size:20> UML Generated : 2025-07-02 10:34 </size>
+ endfooter 
+@enduml 

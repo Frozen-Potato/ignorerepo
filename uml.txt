@@ -1,0 +1,110 @@
+'Download plantuml from http://plantuml.sourceforge.net/ 
+'Generate png with java -jar plantuml.jar <file> 
+'Output in img/<module>.png 
+'If Java spits out memory error increase heap size with java -Xmx1024m  -jar plantuml.jar <file> 
+@startuml img/_3gpp-common-measurements.png 
+hide empty fields 
+hide empty methods 
+hide <<case>> circle
+hide <<augment>> circle
+hide <<choice>> circle
+hide <<leafref>> stereotype
+hide <<leafref>> circle
+page 1x1 
+Title _3gpp-common-measurements 
+package "top3gpp:_3gpp-common-top" as top3gpp__3gpp_common_top { 
+} 
+package "types3gpp:_3gpp-common-yang-types" as types3gpp__3gpp_common_yang_types { 
+} 
+package "yext3gpp:_3gpp-common-yang-extensions" as yext3gpp__3gpp_common_yang_extensions { 
+} 
+package "files3gpp:_3gpp-common-files" as files3gpp__3gpp_common_files { 
+} 
+package "meas3gpp:_3gpp-common-measurements" as meas3gpp__3gpp_common_measurements { 
+} 
+note top of meas3gpp__3gpp_common_measurements : <b>Namespace: </b> urn:3gpp:sa5:_3gpp-common-measurements \n<b>Prefix: </b> meas3gpp \n<b>Organization : </b>\n3GPP SA5 \n<b>Contact : </b>\nhttps://www.3gpp.org/DynaReport/TSG-WG--S5--officials.htm?Itemid=464 \n<b>Revision : </b> 2025-02-07 \n
+package "meas3gpp:_3gpp-common-measurements" as meas3gpp__3gpp_common_measurements { 
+class "_3gpp-common-measurements" as _3gpp_common_measurements << (M, #33CCFF) module>> 
+_3gpp_common_measurements : feature : FilesUnderPerfMetricJob 
+class "ThresholdInfoGrp" as _3gpp_common_measurements_I_ThresholdInfoGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : performanceMetrics []: string 
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : thresholdLevel : uint64   {mandatory}
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : thresholdDirection : enumeration : {UP,DOWN,UP_AND_DOWN,}   {mandatory}
+note bottom of _3gpp_common_measurements_I_ThresholdInfoGrp_grouping
+<b>Must</b> (thresholdDirection):
+. = "UP_AND_DOWN" or  not(../hysteresis)
+
+end note 
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : thresholdValue : union{int64, decimal64}   {mandatory}
+_3gpp_common_measurements_I_ThresholdInfoGrp_grouping : hysteresis : union{uint64, decimal64}  
+note bottom of _3gpp_common_measurements_I_ThresholdInfoGrp_grouping
+<b>Must</b> (hysteresis):
+. >= 0
+
+end note 
+class "SupportedPerfMetricGroupGrp" as _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_grouping <<(G,Lime) grouping>> 
+class "SupportedPerfMetricGroups" as _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_grouping *-- "0..N" _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups 
+note bottom of _3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups
+<b>Config = </b>false
+end note 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : +idx : uint32  {key} 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : performanceMetrics []: string 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : granularityPeriods []: uint32 [1..max]  {seconds}
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : reportingMethods []: enumeration : {FILE_BASED_LOC_SET_BY_PRODUCER,FILE_BASED_LOC_SET_BY_CONSUMER,STREAM_BASED,} 
+_3gpp_common_measurements_I_SupportedPerfMetricGroupGrp_I_SupportedPerfMetricGroups : reportingPeriods []: uint32 [1..max]  {seconds}
+class "PerfMetricJobGrp" as _3gpp_common_measurements_I_PerfMetricJobGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : administrativeState : types3gpp:BasicAdministrativeState   = UNLOCKED 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : operationalState : types3gpp:OperationalState   {mandatory} {Config : false}
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : jobId : string  
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : performanceMetrics []: string 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : granularityPeriod : uint32 [1..max]   {mandatory} {seconds}
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : objectInstances []: types3gpp:DistinguishedName 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : rootObjectInstances []: types3gpp:DistinguishedName 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : types3gpp:ReportingCtrl {uses} 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping : _linkToFiles : string   {mandatory} {Config : false}
+class "conditiona-or-schedule" as _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule <<choice>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_grouping .. _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule : choice 
+class "schedulerRef" as _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_schedulerRef_case <<case>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule .. _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_schedulerRef_case : choice schedulerRef
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_schedulerRef_case : schedulerRef : types3gpp:DistinguishedName  
+class "conditionMonitorRef" as _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_conditionMonitorRef_case <<case>> 
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule .. _3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_conditionMonitorRef_case : choice conditionMonitorRef
+_3gpp_common_measurements_I_PerfMetricJobGrp_I_conditiona_or_schedule_I_conditionMonitorRef_case : conditionMonitorRef : types3gpp:DistinguishedName  
+class "ThresholdMonitorGrp" as _3gpp_common_measurements_I_ThresholdMonitorGrp_grouping <<(G,Lime) grouping>> 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : administrativeState : types3gpp:BasicAdministrativeState   = UNLOCKED 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : operationalState : types3gpp:OperationalState   {mandatory} {Config : false}
+class "thresholdInfoList" as _3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping *-- "1..N" _3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList : +idx : uint32  {key} 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList : ThresholdInfoGrp {uses} 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : monitorGranularityPeriod : uint32 [1..max]   {mandatory} {second}
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : objectInstances []: types3gpp:DistinguishedName 
+_3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : rootObjectInstances []: types3gpp:DistinguishedName 
+class "MeasurementSubtree" as _3gpp_common_measurements_I_MeasurementSubtree_grouping <<(G,Lime) grouping>> 
+class "PerfMetricJob" as _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_MeasurementSubtree_grouping *-- "0..N" _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob : top3gpp:Top_Grp {uses} 
+class "attributes" as  _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes <<container>> 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob *-- "1" _3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes : PerfMetricJobGrp {uses} 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob : files3gpp:FilesSubtree {uses} 
+class "ThresholdMonitor" as _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor << (L, #FF7700) list>> 
+_3gpp_common_measurements_I_MeasurementSubtree_grouping *-- "0..N" _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor : top3gpp:Top_Grp {uses} 
+class "attributes" as  _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes <<container>> 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor *-- "1" _3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes : ThresholdMonitorGrp {uses} 
+} 
+
+top3gpp__3gpp_common_top +-- meas3gpp__3gpp_common_measurements
+types3gpp__3gpp_common_yang_types +-- meas3gpp__3gpp_common_measurements
+yext3gpp__3gpp_common_yang_extensions +-- meas3gpp__3gpp_common_measurements
+files3gpp__3gpp_common_files +-- meas3gpp__3gpp_common_measurements
+_3gpp_common_measurements_I_ThresholdMonitorGrp_I_thresholdInfoList --> _3gpp_common_measurements_I_ThresholdInfoGrp_grouping : uses 
+_3gpp_common_measurements_I_MeasurementSubtree_I_PerfMetricJob_I_attributes --> _3gpp_common_measurements_I_PerfMetricJobGrp_grouping : uses 
+_3gpp_common_measurements_I_MeasurementSubtree_I_ThresholdMonitor_I_attributes --> _3gpp_common_measurements_I_ThresholdMonitorGrp_grouping : uses 
+center footer
+ <size:20> UML Generated : 2025-07-02 09:34 </size>
+ endfooter 
+@enduml 
